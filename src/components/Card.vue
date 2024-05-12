@@ -2,8 +2,18 @@
 import { Circle } from "lucide-vue-next";
 import { CalendarClock } from "lucide-vue-next";
 import { Ellipsis } from "lucide-vue-next";
+import { ListChecks } from "lucide-vue-next";
+import { Trash2 } from "lucide-vue-next";
 
 import { Separator } from "@/components/ui/separator";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const cards = [
   {
@@ -111,9 +121,29 @@ const cards = [
           <span class="text-sm">{{ card.date }}</span>
         </div>
 
-        <Ellipsis
-          class="h-6 w-6 rotate-90 cursor-pointer duration-200 ease-in-out hover:rotate-180"
-        />
+        <DropdownMenu>
+          <DropdownMenuTrigger as-child>
+            <Button>
+              <Ellipsis
+                class="h-6 w-6 cursor-pointer duration-300 ease-in-out hover:rotate-90"
+              />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent class="grid w-40 gap-1 px-3 py-2">
+            <div
+              class="flex cursor-pointer items-center gap-2 duration-300 ease-in-out hover:scale-105"
+            >
+              <ListChecks class="w-5 text-green-600" />
+              <span class="text-sm">Task Done</span>
+            </div>
+            <div
+              class="flex cursor-pointer items-center gap-2 duration-300 ease-in-out hover:scale-105"
+            >
+              <Trash2 class="w-5 text-red-600" />
+              <span class="text-sm">Delete Task</span>
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   </div>
