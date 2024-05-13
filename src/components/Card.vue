@@ -49,8 +49,12 @@ const props = defineProps({
 
       <!-- BODY OF CARD -->
       <div class="-mt-1 flex flex-col gap-1">
-        <h1 class="line-clamp-1 text-lg font-semibold">{{ cardTitle }}</h1>
-        <span class="line-clamp-3 text-sm">{{ cardContent }}</span>
+        <h1 class="line-clamp-1 resize-none text-lg font-semibold">
+          {{ cardTitle }}
+        </h1>
+        <Textarea class="line-clamp-3 resize-none text-sm outline-0">{{
+          cardContent
+        }}</Textarea>
       </div>
 
       <Separator class="w-full bg-gray-500" />
@@ -70,15 +74,15 @@ const props = defineProps({
               />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent class="grid w-40 gap-1 px-3 py-2">
+          <DropdownMenuContent class="grid w-40">
             <div
-              class="flex cursor-pointer items-center gap-2 duration-300 ease-in-out hover:scale-105"
+              class="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-0.5 duration-300 ease-in-out hover:bg-accent"
             >
               <ListChecks class="w-5 text-green-600" />
               <span class="text-sm">Task Done</span>
             </div>
             <div
-              class="flex cursor-pointer items-center gap-2 duration-300 ease-in-out hover:scale-105"
+              class="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-0.5 duration-300 ease-in-out hover:bg-accent"
             >
               <Trash2 class="w-5 text-red-600" />
               <span class="text-sm">Delete Task</span>
