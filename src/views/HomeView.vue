@@ -112,7 +112,7 @@ const cards = [
   bottom: 0;
   left: 0;
   right: 0;
-  height: 75px;
+  height: 50px;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0),
