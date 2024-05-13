@@ -87,18 +87,37 @@ const cards = [
       <CardDetails />
     </div>
 
-    <div
-      class="no-scrollbar relative grid h-[560px] grid-cols-3 gap-5 overflow-y-auto rounded-lg p-2"
-    >
-      <Card
-        v-for="card in cards"
-        :key="card.cardTitle"
-        :priorityColor="card.priorityColor"
-        :cardCategory="card.cardCategory"
-        :cardTitle="card.cardTitle"
-        :cardContent="card.cardContent"
-        :cardDate="card.cardDate"
-      />
+    <div class="overlay relative h-[560px] overflow-hidden rounded-lg">
+      <div
+        class="no-scrollbar grid h-full grid-cols-3 gap-5 overflow-y-scroll p-2"
+      >
+        <Card
+          v-for="card in cards"
+          :key="card.cardTitle"
+          :priorityColor="card.priorityColor"
+          :cardCategory="card.cardCategory"
+          :cardTitle="card.cardTitle"
+          :cardContent="card.cardContent"
+          :cardDate="card.cardDate"
+        />
+      </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.overlay::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 75px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1)
+  );
+  pointer-events: none;
+}
+</style>
