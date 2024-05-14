@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import MarkDownLegend from "./MarkDownLegend.vue";
+import CategoryEdit from "./CategoryEdit.vue";
+
 import { Layers } from "lucide-vue-next";
 import { GalleryVerticalEnd } from "lucide-vue-next";
 import { Calendar as CalendarIcon } from "lucide-vue-next";
@@ -27,7 +30,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import MarkDownLegend from "./MarkDownLegend.vue";
 
 const df = new DateFormatter("en-US", {
   dateStyle: "long",
@@ -72,6 +74,7 @@ const category = ref("category");
               <DropdownMenuRadioItem value="Critical">
                 No Categories found
               </DropdownMenuRadioItem>
+              <CategoryEdit />
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
