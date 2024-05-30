@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import { Circle } from "lucide-vue-next";
-import { CalendarClock } from "lucide-vue-next";
-import { Ellipsis } from "lucide-vue-next";
-import { ListChecks } from "lucide-vue-next";
-import { Trash2 } from "lucide-vue-next";
+import {
+  Circle,
+  CalendarClock,
+  Ellipsis,
+  ListChecks,
+  Trash2,
+  Pencil,
+} from "lucide-vue-next";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import {
   DropdownMenu,
@@ -12,6 +18,8 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import CategoryEdit from "./CategoryEdit.vue";
+import { ref, watch } from "vue";
 
 const props = defineProps({
   priorityColor: {
@@ -35,6 +43,23 @@ const props = defineProps({
     required: true,
   },
 });
+
+const category = ref("");
+
+const currentColor = ref(props.priorityColor);
+
+const colors = [
+  "text-green-500",
+  "text-yellow-500",
+  "text-orange-500",
+  "text-red-500",
+];
+
+const handleColorChange = () => {
+  const currentIndex = colors.indexOf(currentColor.value);
+  const nextIndex = (currentIndex + 1) % colors.length;
+  currentColor.value = colors[nextIndex];
+};
 </script>
 
 <template>
@@ -42,17 +67,41 @@ const props = defineProps({
     <!-- FULL CARD -->
     <div class="card-container grid-rows-layout grid gap-3.5 rounded-lg p-5">
       <!-- HEADER OF CARD -->
-      <div class="flex items-center gap-2">
-        <Circle :class="`h-3 w-3 ${priorityColor} fill-current`" />
-        <span class="font-medium">{{ cardCategory }}</span>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <Circle
+            :class="`h-3 w-3 ${currentColor} cursor-pointer fill-current`"
+            @click="handleColorChange"
+          />
+          <span class="font-medium">{{ cardCategory }}</span>
+        </div>
+        <!-- HEADER OF CARD - Category -->
+
+        <DropdownMenu>
+          <DropdownMenuTrigger as-child>
+            <Button size="xs"><Pencil class="w-4" /></Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent class="w-52">
+            <DropdownMenuRadioGroup v-model="category">
+              <DropdownMenuRadioItem value="No Categories found">
+                No Categories found
+              </DropdownMenuRadioItem>
+              <CategoryEdit />
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       <!-- BODY OF CARD -->
       <div class="-mt-1 flex flex-col gap-1">
-        <h1 class="line-clamp-1 resize-none text-lg font-semibold">
-          {{ cardTitle }}
-        </h1>
-        <Textarea class="line-clamp-3 resize-none text-sm outline-0">{{
+        <Input
+          type="text"
+          :model-value="cardTitle"
+          placeholder="Taskname..."
+          class="h-7 resize-none truncate border-0 px-0 text-lg font-semibold focus-visible:ring-0 focus-visible:ring-offset-0"
+        />
+
+        <Textarea class="line-clamp-3 h-full resize-none text-sm outline-0">{{
           cardContent
         }}</Textarea>
       </div>
@@ -68,11 +117,9 @@ const props = defineProps({
 
         <DropdownMenu>
           <DropdownMenuTrigger as-child>
-            <Button>
-              <Ellipsis
-                class="h-6 w-6 cursor-pointer duration-300 ease-in-out hover:rotate-90"
-              />
-            </Button>
+            <Ellipsis
+              class="h-6 w-6 cursor-pointer duration-300 ease-in-out hover:rotate-90"
+            />
           </DropdownMenuTrigger>
           <DropdownMenuContent class="grid w-40">
             <div
