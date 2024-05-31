@@ -136,7 +136,7 @@ const handleColorChange = () => {
           <Popover>
             <PopoverTrigger as-child>
               <Button
-                variant="ghost"
+                variant="secondary"
                 size="xs"
                 :class="
                   cn(
