@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import CategoryEdit from "./CategoryEdit.vue";
+
 import {
   Circle,
   CalendarClock,
@@ -7,6 +9,9 @@ import {
   Trash2,
   Pencil,
 } from "lucide-vue-next";
+
+import { ref } from "vue";
+import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,8 +23,25 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import CategoryEdit from "./CategoryEdit.vue";
-import { ref, watch } from "vue";
+import {
+  DateFormatter,
+  type DateValue,
+  getLocalTimeZone,
+} from "@internationalized/date";
+
+import { Calendar as CalendarIcon } from "lucide-vue-next";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+const df = new DateFormatter("en-US", {
+  dateStyle: "long",
+});
+
+const value = ref<DateValue>();
 
 const props = defineProps({
   priorityColor: {
@@ -111,8 +133,30 @@ const handleColorChange = () => {
       <!-- FOOTER OF CARD -->
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <CalendarClock class="h-5 w-5" />
-          <span class="text-sm">{{ cardDate }}</span>
+          <Popover>
+            <PopoverTrigger as-child>
+              <Button
+                variant="ghost"
+                size="xs"
+                :class="
+                  cn(
+                    'w-fit justify-start text-left font-normal',
+                    !value && 'text-black',
+                  )
+                "
+              >
+                <CalendarClock class="mr-2 h-4 w-4 stroke-black" />
+                {{
+                  value
+                    ? df.format(value.toDate(getLocalTimeZone()))
+                    : "Pick a date"
+                }}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent class="w-auto p-0">
+              <Calendar v-model="value" initial-focus />
+            </PopoverContent>
+          </Popover>
         </div>
 
         <DropdownMenu>
