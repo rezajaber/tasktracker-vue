@@ -30,9 +30,9 @@ const low = ref<Checked>(false);
 </script>
 
 <template>
-  <div class="flex justify-between">
+  <div class="mx-auto grid justify-between gap-2 md:mx-0 md:flex">
     <div class="flex gap-2">
-      <div class="relative w-96 max-w-md items-center">
+      <div class="relative w-[22rem] max-w-md items-center md:w-96">
         <Input
           id="search"
           type="text"
@@ -46,42 +46,48 @@ const low = ref<Checked>(false);
         </span>
       </div>
 
-      <Button type="submit"
+      <Button class="hidden md:flex" type="submit"
         ><CirclePlus class="mr-1.5 w-4" />Create Task</Button
       >
     </div>
 
-    <DropdownMenu>
-      <DropdownMenuTrigger as-child>
-        <Button><SlidersHorizontal class="mr-1.5 w-4" />Filter</Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent class="w-56">
-        <DropdownMenuLabel>Status</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuCheckboxItem v-model:checked="showDone">
-            Show Done
-          </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem v-model:checked="overdue">
-            Overdue
-          </DropdownMenuCheckboxItem>
+    <div class="flex justify-between">
+      <Button class="md:hidden" type="submit"
+        ><CirclePlus class="mr-1.5 w-4" />Create Task</Button
+      >
+
+      <DropdownMenu>
+        <DropdownMenuTrigger as-child>
+          <Button><SlidersHorizontal class="mr-1.5 w-4" />Filter</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent class="w-56">
+          <DropdownMenuLabel>Status</DropdownMenuLabel>
           <DropdownMenuSeparator />
-        </DropdownMenuGroup>
-        <DropdownMenuLabel>Priorities</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem v-model:checked="critical">
-          Critical
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem v-model:checked="high">
-          High
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem v-model:checked="normal">
-          Normal
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem v-model:checked="low">
-          Low
-        </DropdownMenuCheckboxItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuGroup>
+            <DropdownMenuCheckboxItem v-model:checked="showDone">
+              Show Done
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem v-model:checked="overdue">
+              Overdue
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuSeparator />
+          </DropdownMenuGroup>
+          <DropdownMenuLabel>Priorities</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuCheckboxItem v-model:checked="critical">
+            Critical
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem v-model:checked="high">
+            High
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem v-model:checked="normal">
+            Normal
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem v-model:checked="low">
+            Low
+          </DropdownMenuCheckboxItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   </div>
 </template>

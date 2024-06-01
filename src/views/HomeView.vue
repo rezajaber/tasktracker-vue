@@ -89,7 +89,7 @@ const cards = [
 
     <div class="overlay relative h-[560px] overflow-hidden rounded-lg">
       <div
-        class="no-scrollbar grid h-full grid-cols-3 gap-5 overflow-y-scroll p-2"
+        class="no-scrollbar grid h-full gap-5 overflow-y-scroll p-2 md:grid-cols-2 xl:grid-cols-3"
       >
         <Card
           v-for="card in cards"
